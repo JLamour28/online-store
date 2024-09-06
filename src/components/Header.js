@@ -2,10 +2,10 @@ import React from 'react';
 import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { FaShoppingCart } from 'react-icons/fa'; // Make sure to install react-icons
+import { FaShoppingCart } from 'react-icons/fa';
 
 function Header() {
-  // Get user state and cart items from Redux store
+  // Get user and cart information from Redux store
   const { username, isLoggedIn } = useSelector(state => state.user);
   const cartItems = useSelector(state => state.cart.items);
 
@@ -13,7 +13,7 @@ function Header() {
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" sticky="top" className="mb-4">
       <Container>
         {/* Brand logo */}
         <Navbar.Brand as={Link} to="/">Online Store</Navbar.Brand>
@@ -23,18 +23,24 @@ function Header() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/store">Store</Nav.Link>
-            {/* Cart link with item count badge */}
+          </Nav>
+          <Nav>
+            {/* Cart icon with item count */}
             <Nav.Link as={Link} to="/cart" className="position-relative">
-              <FaShoppingCart size={20} />
+              <FaShoppingCart className="cart-icon" />
               {cartItemCount > 0 && (
                 <Badge pill bg="danger" className="position-absolute top-0 start-100 translate-middle">
                   {cartItemCount}
                 </Badge>
               )}
             </Nav.Link>
+            {/* Conditional rendering based on login status */}
+            {isLoggedIn ? (
+              <Navbar.Text>Welcome, {username}!</Navbar.Text>
+            ) : (
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            )}
           </Nav>
-          {/* Display username if logged in */}
-          {isLoggedIn && <Navbar.Text>Welcome, {username}!</Navbar.Text>}
         </Navbar.Collapse>
       </Container>
     </Navbar>

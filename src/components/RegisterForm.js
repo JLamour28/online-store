@@ -34,35 +34,35 @@ function RegisterForm() {
           {/* First Name Field */}
           <BootstrapForm.Group className="mb-3">
             <BootstrapForm.Label>First Name</BootstrapForm.Label>
-            <Field name="firstName" as={BootstrapForm.Control} isInvalid={touched.firstName && errors.firstName} />
+            <Field name="firstName" as={BootstrapForm.Control} isInvalid={touched.firstName && errors.firstName} Placeholder="Enter first name" />
             <BootstrapForm.Control.Feedback type="invalid">{errors.firstName}</BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
 
           {/* Surname Field */}
           <BootstrapForm.Group className="mb-3">
             <BootstrapForm.Label>Surname</BootstrapForm.Label>
-            <Field name="surname" as={BootstrapForm.Control} isInvalid={touched.surname && errors.surname} />
+            <Field name="surname" as={BootstrapForm.Control} isInvalid={touched.surname && errors.surname} Placeholder="Enter surname"/>
             <BootstrapForm.Control.Feedback type="invalid">{errors.surname}</BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
 
           {/* Username Field */}
           <BootstrapForm.Group className="mb-3">
             <BootstrapForm.Label>Username</BootstrapForm.Label>
-            <Field name="username" as={BootstrapForm.Control} isInvalid={touched.username && errors.username} />
+            <Field name="username" as={BootstrapForm.Control} isInvalid={touched.username && errors.username} Placeholder="Enter Username"/>
             <BootstrapForm.Control.Feedback type="invalid">{errors.username}</BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
 
           {/* Email Field */}
           <BootstrapForm.Group className="mb-3">
             <BootstrapForm.Label>Email</BootstrapForm.Label>
-            <Field name="email" type="email" as={BootstrapForm.Control} isInvalid={touched.email && errors.email} />
+            <Field name="email" type="email" as={BootstrapForm.Control} isInvalid={touched.email && errors.email} Placeholder="Enter email" />
             <BootstrapForm.Control.Feedback type="invalid">{errors.email}</BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
 
           {/* Password Field */}
           <BootstrapForm.Group className="mb-3">
             <BootstrapForm.Label>Password</BootstrapForm.Label>
-            <Field name="password" type="password" as={BootstrapForm.Control} isInvalid={touched.password && errors.password} />
+            <Field name="password" type="password" as={BootstrapForm.Control} isInvalid={touched.password && errors.password} Placeholder="Enter password" />
             <BootstrapForm.Control.Feedback type="invalid">{errors.password}</BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
 

@@ -12,12 +12,15 @@ function ProductCard({ product }) {
   };
 
   return (
-    <Card>
-      <Card.Img variant="top" src={product.image} />
-      <Card.Body>
+    <Card className="h-100">
+      {/* Product image */}
+      <Card.Img variant="top" src={product.image} className="product-image" />
+      <Card.Body className="d-flex flex-column">
+        {/* Product details */}
         <Card.Title>{product.name}</Card.Title>
         <Card.Text>${product.price.toFixed(2)}</Card.Text>
-        <Button variant="primary" onClick={handleAddToCart}>Add to Cart</Button>
+        {/* Add to cart button */}
+        <Button variant="primary" onClick={handleAddToCart} className="mt-auto">Add to Cart</Button>
       </Card.Body>
     </Card>
   );

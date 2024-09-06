@@ -12,11 +12,12 @@ const products = [
 
 function StorePage() {
   return (
-    <Container className="mt-5">
-      <h1>Our Products</h1>
-      <Row>
+    <Container>
+      <h1 className="my-4">Our Products</h1>
+      {/* Responsive grid layout for products */}
+      <Row xs={1} md={2} lg={4} className="g-4">
         {products.map(product => (
-          <Col key={product.id} sm={6} md={4} lg={3} className="mb-4">
+          <Col key={product.id}>
             <ProductCard product={product} />
           </Col>
         ))}

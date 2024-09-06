@@ -29,14 +29,14 @@ function LoginForm() {
           {/* Username Field */}
           <BootstrapForm.Group className="mb-3">
             <BootstrapForm.Label>Username</BootstrapForm.Label>
-            <Field name="username" as={BootstrapForm.Control} isInvalid={touched.username && errors.username} />
+            <Field name="username" as={BootstrapForm.Control} isInvalid={touched.username && errors.username} Placeholder="Enter username"/>
             <BootstrapForm.Control.Feedback type="invalid">{errors.username}</BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
 
           {/* Password Field */}
           <BootstrapForm.Group className="mb-3">
             <BootstrapForm.Label>Password</BootstrapForm.Label>
-            <Field name="password" type="password" as={BootstrapForm.Control} isInvalid={touched.password && errors.password} />
+            <Field name="password" type="password" as={BootstrapForm.Control} isInvalid={touched.password && errors.password} Placeholder="Enter password" />
             <BootstrapForm.Control.Feedback type="invalid">{errors.password}</BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
 
