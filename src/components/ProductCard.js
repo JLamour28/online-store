@@ -6,6 +6,7 @@ import { addToCart } from '../redux/actions';
 function ProductCard({ product }) {
   const dispatch = useDispatch();
 
+  // Handler for adding product to cart
   const handleAddToCart = () => {
     dispatch(addToCart(product));
   };
