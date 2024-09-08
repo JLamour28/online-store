@@ -1,28 +1,17 @@
 import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setShippingMethod } from '../redux/actions';
 
 function ShippingOptions() {
-  const dispatch = useDispatch();
-  const [selectedMethod, setSelectedMethod] = useState('');
-  const [showHelpModal, setShowHelpModal] = useState(false);
+  // ... (keep existing code)
 
-  // Shipping methods
+  // Shipping methods data
   const shippingMethods = [
-    { id: 'standard', name: 'Standard Shipping', price: 5.99 },
-    { id: 'express', name: 'Express Shipping', price: 14.99 },
-    { id: 'overnight', name: 'Overnight Shipping', price: 29.99 },
+    { id: 'standard', name: 'Standard Shipping', price: 59.99, description: 'Delivers in 5-7 business days' },
+    { id: 'express', name: 'Express Shipping', price: 149.99, description: 'Delivers in 2-3 business days' },
+    { id: 'overnight', name: 'Overnight Shipping', price: 299.99, description: 'Delivers the next business day' },
   ];
-
-  // Handler for shipping method selection
-  const handleShippingMethodChange = (e) => {
-    setSelectedMethod(e.target.value);
-    dispatch(setShippingMethod(e.target.value));
-  };
-
-  // Toggle help modal
-  const toggleHelpModal = () => setShowHelpModal(!showHelpModal);
 
   return (
     <div>
@@ -33,27 +22,27 @@ function ShippingOptions() {
             key={method.id}
             type="radio"
             id={`shipping-${method.id}`}
-            label={`${method.name} - $${method.price.toFixed(2)}`}
+            label={`${method.name} - R ${method.price.toFixed(2)}`}
             name="shippingMethod"
             value={method.id}
-            checked={selectedMethod === method.id}
+            checked={currentShippingMethod === method.id}
             onChange={handleShippingMethodChange}
           />
         ))}
       </Form>
-      <Button variant="info" size="sm" onClick={toggleHelpModal} className="mt-2">
-        Need help with shipping?
-      </Button>
-
-      {/* Help Modal */}
+      {/* ... (keep existing code) */}
       <Modal show={showHelpModal} onHide={toggleHelpModal}>
         <Modal.Header closeButton>
           <Modal.Title>Shipping Information</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Standard Shipping: Delivers in 5-7 business days.</p>
-          <p>Express Shipping: Delivers in 2-3 business days.</p>
-          <p>Overnight Shipping: Delivers the next business day.</p>
+          {shippingMethods.map((method) => (
+            <div key={method.id}>
+              <h5>{method.name}</h5>
+              <p>{method.description}</p>
+              <p>Price: R {method.price.toFixed(2)}</p>
+            </div>
+          ))}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={toggleHelpModal}>

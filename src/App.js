@@ -4,30 +4,28 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import Header from './components/Header';
 import LandingPage from './pages/LandingPage';
-import StorePage from './pages/StorePage';
+import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
+import AuthPage from './pages/AuthPage';
+import './styles/custom.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/custom.css';  // Custom CSS import
 
 function App() {
   return (
+    // Wrap the entire app with Redux Provider
     <Provider store={store}>
+      {/* Set up routing */}
       <Router>
-        {/* Main app container with flexbox for footer positioning */}
-        <div className="App d-flex flex-column min-vh-100">
+        <div className="App">
+          {/* Header component is outside Routes to appear on all pages */}
           <Header />
-          {/* Main content area */}
-          <main className="flex-grow-1">
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/store" element={<StorePage />} />
-              <Route path="/cart" element={<CartPage />} />
-            </Routes>
-          </main>
-          {/* Footer */}
-          <footer className="footer text-center">
-            <p>&copy; 2023 Online Store. All rights reserved.</p>
-          </footer>
+          <Routes>
+            {/* Define routes for different pages */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/products" element={<ProductPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+          </Routes>
         </div>
       </Router>
     </Provider>

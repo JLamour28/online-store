@@ -1,43 +1,40 @@
-// Action types
-export const LOGIN_USER = 'LOGIN_USER';
+// User actions
 export const REGISTER_USER = 'REGISTER_USER';
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
+
+// Cart actions
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
-export const UPDATE_CART_ITEM_QUANTITY = 'UPDATE_CART_ITEM_QUANTITY';
-export const SET_SHIPPING_METHOD = 'SET_SHIPPING_METHOD'; // Add this line
+export const SET_SHIPPING_METHOD = 'SET_SHIPPING_METHOD';
 
-// Action creator for user login
-export const loginUser = (username) => ({
-  type: LOGIN_USER,
-  payload: username,
-});
-
-// Action creator for user registration
+// User action creators
 export const registerUser = (userData) => ({
   type: REGISTER_USER,
-  payload: userData,
+  payload: userData
 });
 
-// Action creator for adding item to cart
+export const loginUser = (username) => ({
+  type: LOGIN_USER,
+  payload: username
+});
+
+export const logoutUser = () => ({
+  type: LOGOUT_USER
+});
+
+// Cart action creators
 export const addToCart = (product) => ({
   type: ADD_TO_CART,
-  payload: product,
+  payload: product
 });
 
-// Action creator for removing item from cart
 export const removeFromCart = (productId) => ({
   type: REMOVE_FROM_CART,
-  payload: productId,
+  payload: productId
 });
 
-// Action creator for updating cart item quantity
-export const updateCartItemQuantity = (productId, quantity) => ({
-  type: UPDATE_CART_ITEM_QUANTITY,
-  payload: { productId, quantity },
-});
-
-// Action creator for setting shipping method
 export const setShippingMethod = (method) => ({
   type: SET_SHIPPING_METHOD,
-  payload: method,
+  payload: method
 });
