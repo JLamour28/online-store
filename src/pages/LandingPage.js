@@ -42,7 +42,7 @@ const LandingPage = () => {
       <Row>
         <Col md={6}>
           <h1>Welcome to DJ City</h1>
-          <p>Find the best DJ equipment at the best prices!</p>
+          <p>Find the best DJ equipment for all your needs at the best prices!</p>
         </Col>
         <Col md={6}>
           {!isLoggedIn ? (
