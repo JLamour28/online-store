@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Table, Button, Form } from 'react-bootstrap';
+import { Container, Table, Button, Form, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../redux/actions';
 
@@ -7,12 +7,13 @@ const CartPage = () => {
   const cartItems = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
   const [shippingMethod, setShippingMethod] = useState('standard');
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
-  // Shipping prices
-  const shippingPrices = {
-    standard: 50,
-    express: 100,
-    overnight: 200
+  // Shipping prices and descriptions
+  const shippingOptions = {
+    standard: { price: 50, description: "Delivery within 5-7 business days" },
+    express: { price: 100, description: "Delivery within 2-3 business days" },
+    overnight: { price: 200, description: "Delivery by next business day" }
   };
 
   const handleRemoveItem = (id) => {
@@ -23,7 +24,7 @@ const CartPage = () => {
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   // Get shipping cost based on selected method
-  const shippingCost = shippingPrices[shippingMethod];
+  const shippingCost = shippingOptions[shippingMethod].price;
 
   // Calculate total
   const total = subtotal + shippingCost;
@@ -74,6 +75,11 @@ const CartPage = () => {
             </Form.Control>
           </Form.Group>
 
+          {/* Help button */}
+          <Button variant="info" size="sm" onClick={() => setShowHelpModal(true)} className="mb-3">
+            Shipping Information
+          </Button>
+
           {/* Order summary */}
           <h3>Order Summary</h3>
           <Table>
@@ -98,6 +104,31 @@ const CartPage = () => {
           </Button>
         </>
       )}
+
+      {/* Help Modal */}
+      <Modal show={showHelpModal} onHide={() => setShowHelpModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Shipping Information</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h5>Standard Shipping</h5>
+          <p>{shippingOptions.standard.description}</p>
+          <p>Cost: R{shippingOptions.standard.price.toFixed(2)}</p>
+
+          <h5>Express Shipping</h5>
+          <p>{shippingOptions.express.description}</p>
+          <p>Cost: R{shippingOptions.express.price.toFixed(2)}</p>
+
+          <h5>Overnight Shipping</h5>
+          <p>{shippingOptions.overnight.description}</p>
+          <p>Cost: R{shippingOptions.overnight.price.toFixed(2)}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowHelpModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };
