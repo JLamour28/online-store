@@ -4,18 +4,12 @@ export const REGISTER_USER = 'REGISTER_USER';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const UPDATE_CART_ITEM_QUANTITY = 'UPDATE_CART_ITEM_QUANTITY';
-export const SET_SHIPPING_METHOD = 'SET_SHIPPING_METHOD'; 
-export const LOGOUT_USER = 'LOGOUT_USER';
+export const SET_SHIPPING_METHOD = 'SET_SHIPPING_METHOD'; // Add this line
 
 // Action creator for user login
 export const loginUser = (username) => ({
   type: LOGIN_USER,
   payload: username,
-});
-
-// Action creator for user logout
-export const logoutUser = () => ({
-  type: LOGOUT_USER
 });
 
 // Action creator for user registration

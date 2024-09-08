@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { 
-  LOGIN_USER,
-  LOGOUT_USER, 
+  LOGIN_USER, 
   REGISTER_USER, 
   ADD_TO_CART, 
   REMOVE_FROM_CART, 
@@ -22,8 +21,6 @@ const userReducer = (state = initialUserState, action) => {
       return { ...state, username: action.payload, isLoggedIn: true };
     case REGISTER_USER:
       return { ...state, ...action.payload, isLoggedIn: true };
-    case LOGOUT_USER:
-      return initialUserState; // Reset to initial state on logout
     default:
       return state;
   }
