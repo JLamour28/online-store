@@ -1,7 +1,12 @@
 /* Global styles */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
+    background-color: #007cf8;
+  background-image: url("https://images2.alphacoders.com/701/thumb-1920-70172.jpg");
+  height: 500px; 
+  background-position: center; 
+  /* background-repeat: no-repeat;  */
+  background-size: cover; 
 }
 
 /* Navigation bar styling */
@@ -51,4 +56,9 @@ body {
 
 footer {
   margin-top: auto;
+}
+
+/* style for containers */
+.mt-5 {
+  color: #f8f9fa;
 }
