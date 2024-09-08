@@ -1,34 +1,27 @@
+// reducers.js
 import { combineReducers } from 'redux';
 import {
-  REGISTER_USER,
   LOGIN_USER,
+  REGISTER_USER,
   LOGOUT_USER,
   ADD_TO_CART,
-  REMOVE_FROM_CART,
-  SET_SHIPPING_METHOD
+  REMOVE_FROM_CART
 } from './actions';
 
-// User reducer
+// Initial state for user
 const initialUserState = {
-  firstName: '',
-  surname: '',
   username: '',
-  email: '',
   isLoggedIn: false
 };
 
+// User reducer
 const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
+    case LOGIN_USER:
     case REGISTER_USER:
       return {
         ...state,
-        ...action.payload,
-        isLoggedIn: true
-      };
-    case LOGIN_USER:
-      return {
-        ...state,
-        username: action.payload,
+        username: action.payload.username,
         isLoggedIn: true
       };
     case LOGOUT_USER:
@@ -38,41 +31,45 @@ const userReducer = (state = initialUserState, action) => {
   }
 };
 
-// Cart reducer
+// Initial state for cart
 const initialCartState = {
-  items: [],
-  shippingMethod: 'standard'
+  items: []
 };
 
+// Cart reducer
 const cartReducer = (state = initialCartState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const existingItemIndex = state.items.findIndex(item => item.id === action.payload.id);
-      if (existingItemIndex >= 0) {
-        const newItems = [...state.items];
-        newItems[existingItemIndex] = {
-          ...newItems[existingItemIndex],
-          quantity: newItems[existingItemIndex].quantity + 1
+      const existingItem = state.items.find(item => item.id === action.payload.id);
+      if (existingItem) {
+        // If item exists, increase quantity
+        return {
+          ...state,
+          items: state.items.map(item =>
+            item.id === action.payload.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
         };
-        return { ...state, items: newItems };
       } else {
-        return { ...state, items: [...state.items, { ...action.payload, quantity: 1 }] };
+        // If item doesn't exist, add it to cart
+        return {
+          ...state,
+          items: [...state.items, { ...action.payload, quantity: 1 }]
+        };
       }
     case REMOVE_FROM_CART:
+      // Remove item from cart
       return {
         ...state,
         items: state.items.filter(item => item.id !== action.payload)
-      };
-    case SET_SHIPPING_METHOD:
-      return {
-        ...state,
-        shippingMethod: action.payload
       };
     default:
       return state;
   }
 };
 
+// Combine reducers
 const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer
