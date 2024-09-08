@@ -1,20 +1,32 @@
-import React from 'react';
-import { Container, Table, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Table, Button, Form } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../redux/actions';
 
 const CartPage = () => {
-  // Get cart items from Redux store
   const cartItems = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
+  const [shippingMethod, setShippingMethod] = useState('standard');
 
-  // Handler for removing item from cart
+  // Shipping prices
+  const shippingPrices = {
+    standard: 50,
+    express: 100,
+    overnight: 200
+  };
+
   const handleRemoveItem = (id) => {
     dispatch(removeFromCart(id));
   };
 
-  // Calculate total price of items in cart
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // Calculate subtotal
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  // Get shipping cost based on selected method
+  const shippingCost = shippingPrices[shippingMethod];
+
+  // Calculate total
+  const total = subtotal + shippingCost;
 
   return (
     <Container className="mt-5">
@@ -34,7 +46,6 @@ const CartPage = () => {
               </tr>
             </thead>
             <tbody>
-              {/* Map through cart items and render each as a table row */}
               {cartItems.map(item => (
                 <tr key={item.id}>
                   <td>{item.name}</td>
@@ -48,7 +59,43 @@ const CartPage = () => {
               ))}
             </tbody>
           </Table>
-          <h3>Total: R{total.toFixed(2)}</h3>
+
+          {/* Shipping options */}
+          <Form.Group className="mb-3">
+            <Form.Label>Select Shipping Method:</Form.Label>
+            <Form.Control 
+              as="select" 
+              value={shippingMethod} 
+              onChange={(e) => setShippingMethod(e.target.value)}
+            >
+              <option value="standard">Standard Shipping - R50</option>
+              <option value="express">Express Shipping - R100</option>
+              <option value="overnight">Overnight Shipping - R200</option>
+            </Form.Control>
+          </Form.Group>
+
+          {/* Order summary */}
+          <h3>Order Summary</h3>
+          <Table>
+            <tbody>
+              <tr>
+                <td>Subtotal:</td>
+                <td>R{subtotal.toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td>Shipping:</td>
+                <td>R{shippingCost.toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td><strong>Total:</strong></td>
+                <td><strong>R{total.toFixed(2)}</strong></td>
+              </tr>
+            </tbody>
+          </Table>
+
+          <Button variant="primary" size="lg">
+            Proceed to Checkout
+          </Button>
         </>
       )}
     </Container>

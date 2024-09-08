@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button, Tabs, Tab } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Tabs, Tab, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, registerUser } from '../redux/actions';
 
 const LandingPage = () => {
-  // State to manage active tab
   const [key, setKey] = useState('login');
   const dispatch = useDispatch();
-  // Get login status from Redux store
   const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+  const [error, setError] = useState('');
 
-  // Handle login form submission
   const handleLogin = (e) => {
     e.preventDefault();
     const username = e.target.username.value;
@@ -18,7 +16,6 @@ const LandingPage = () => {
     dispatch(loginUser({ username, password }));
   };
 
-  // Handle register form submission
   const handleRegister = (e) => {
     e.preventDefault();
     const userData = {
@@ -28,6 +25,15 @@ const LandingPage = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
+
+    // Password validation
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(userData.password)) {
+      setError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+      return;
+    }
+
+    setError('');
     dispatch(registerUser(userData));
   };
 
@@ -82,7 +88,11 @@ const LandingPage = () => {
                   <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" name="password" required />
+                    <Form.Text className="text-muted">
+                     
+                    </Form.Text>
                   </Form.Group>
+                  {error && <Alert variant="danger">{error}</Alert>}
                   <Button variant="primary" type="submit">
                     Register
                   </Button>
