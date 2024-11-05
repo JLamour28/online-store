@@ -33,10 +33,4 @@ DJ City is a React-based online store application for DJ equipment.
 - React Bootstrap for UI components
 - Formik and Yup for form handling and validation
 
-## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
